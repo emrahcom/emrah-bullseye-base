@@ -34,9 +34,6 @@ ps auxfw >> $OLD_FILES/ps.status
 echo "# ----- dpkg -l -----" >> $OLD_FILES/dpkg.status
 dpkg -l >> $OLD_FILES/dpkg.status
 
-# lxc-net
-[[ -f /etc/default/lxc-net ]] && cp /etc/default/lxc-net $OLD_FILES/
-
 # -----------------------------------------------------------------------------
 # PACKAGES
 # -----------------------------------------------------------------------------
@@ -59,9 +56,3 @@ apt-get $APT_PROXY_OPTION -y install lxc debootstrap bridge-utils
 apt-get $APT_PROXY_OPTION -y install dnsmasq dnsutils
 apt-get $APT_PROXY_OPTION -y install xz-utils gnupg pwgen
 apt-get $APT_PROXY_OPTION -y install wget ca-certificates
-
-# -----------------------------------------------------------------------------
-# LXC
-# -----------------------------------------------------------------------------
-cp etc/default/lxc-net /etc/default/
-systemctl restart lxc-net.service

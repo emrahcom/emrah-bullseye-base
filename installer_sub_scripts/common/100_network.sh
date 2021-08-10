@@ -46,6 +46,7 @@ mkdir -p $OLD_FILES
 [[ -f /etc/nftables.conf ]] && cp /etc/nftables.conf $OLD_FILES/
 [[ -f /etc/network/interfaces ]] && cp /etc/network/interfaces $OLD_FILES/
 [[ -f /etc/dnsmasq.d/eb_hosts ]] && cp /etc/dnsmasq.d/eb_hosts $OLD_FILES/
+[[ -f /etc/default/lxc-net ]] && cp /etc/default/lxc-net $OLD_FILES/
 
 # network status
 echo "# ----- ip addr -----" >> $OLD_FILES/network.status
@@ -103,6 +104,19 @@ fi
 cp etc/sysctl.d/eb_ip_forward.conf /etc/sysctl.d/
 sysctl -p /etc/sysctl.d/eb_ip_forward.conf || true
 [[ "$(cat /proc/sys/net/ipv4/ip_forward)" != 1 ]] && false
+
+# -----------------------------------------------------------------------------
+# LXC-NET
+# -----------------------------------------------------------------------------
+cp etc/default/lxc-net /etc/default/
+
+# remove default bridge if exists
+if brctl show lxcbr0; then
+    ip link set dev lxcbr0 down
+    brctl delbr lxcbr0
+fi
+
+systemctl restart lxc-net.service
 
 # -----------------------------------------------------------------------------
 # BRIDGE CONFIG
