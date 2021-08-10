@@ -17,13 +17,13 @@ export RELEASE="bullseye"
 export BASE_INSTALLER=eb-base
 export BASE_CONFIG="${BASE_INSTALLER}.conf"
 export BASE_REPO="https://github.com/emrahcom/emrah-bullseye-base.git"
-export BASE_BRANCH="master"
+export BASE_BRANCH="main"
 export BASE_TMP_DIR="eb_base_tmp"
 
 export APP_INSTALLER="$(echo $1 | cut -d. -f1)"
 export APP_CONFIG="${APP_INSTALLER}.conf"
 export APP_REPO=
-export APP_BRANCH="master"
+export APP_BRANCH="main"
 export APP_TMP_DIR="eb_tmp"
 
 export BRIDGE="eb0"
