@@ -10,8 +10,8 @@
 #### About
 
 This repository is the infrastructure of the `emrah-bullseye` installer.
-`emrah-bullseye` is an installer to create the containerized systems on Debian
-11 Bullseye host.
+`emrah-bullseye` is an installer to create the containerized systems on _Debian
+11 Bullseye_ host.
 
 ---
 
@@ -37,9 +37,9 @@ repository for the available templates.
 
 #### Requirements
 
-`emrah-bullseye` requires a Debian 11 Bullseye host with a minimal install and
-the Internet access during the installation. It's not a good idea to use your
-desktop machine or an already in-use production server as a host machine.
+`emrah-bullseye` requires a _Debian 11 Bullseye_ host with a minimal install
+and the Internet access during the installation. It's not a good idea to use
+your desktop machine or an already in-use production server as a host machine.
 Please, use one of the followings as a host:
 
 - a cloud computer from a hosting/cloud service
@@ -48,7 +48,7 @@ Please, use one of the followings as a host:
 
 - a virtual machine (VMware, VirtualBox etc)
 
-- a Debian 11 Bullseye container (_with the nesting support_)
+- a _Debian 11 Bullseye_ container (_with the nesting support_)
   ```
   lxc.include = /usr/share/lxc/config/nesting.conf
   lxc.apparmor.profile = unconfined
