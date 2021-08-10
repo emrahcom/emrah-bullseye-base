@@ -4,7 +4,7 @@
 # EB (emrah-bullseye) INSTALLER
 # -----------------------------------------------------------------------------
 # The first argument is the template name and we need it.
-if [ -z "$1" ]; then
+if [[ -z "$1" ]]; then
     echo "ERROR: missing argument. The template name is required"
     echo "Usage:"
     echo "         bash eb <TEMPLATE_NAME>"
@@ -54,13 +54,13 @@ export FREE_SPACE=$((df | grep "/var/lib/lxc$"
 #    export DONT_RUN_BULLSEYE=true
 #    export BRIDGE="br0"
 # -----------------------------------------------------------------------------
-[ -e "$BASEDIR/$APP_CONFIG" ] && source "$BASEDIR/$APP_CONFIG"
+[[ -e "$BASEDIR/$APP_CONFIG" ]] && source "$BASEDIR/$APP_CONFIG"
 
 # -----------------------------------------------------------------------------
 # CHECKING THE HOST (which will host the LXC containers)
 # -----------------------------------------------------------------------------
 # If the current user is not 'root', cancel the installation.
-if [ "root" != "$(whoami)" ]
+if [[ "root" != "$(whoami)" ]]
 then
     echo
     echo "ERROR: unauthorized user"
@@ -69,8 +69,8 @@ then
 fi
 
 # If the OS release is unsupported, cancel the installation.
-if [ "$DONT_CHECK_OS_RELEASE" != true \
-     -a -z "$(grep "$RELEASE" /etc/os-release)" ]
+if [[ "$DONT_CHECK_OS_RELEASE" != true \
+     -a -z "$(grep "$RELEASE" /etc/os-release)" ]]
 then
     echo
     echo "ERROR: unsupported OS release"
@@ -79,8 +79,8 @@ then
 fi
 
 # If there is not enough disk free space, cancel the installation.
-if [ "$DONT_CHECK_FREE_SPACE" != true \
-     -a "$FREE_SPACE" -lt "$FREE_SPACE_NEEDED" ]
+if [[ "$DONT_CHECK_FREE_SPACE" != true \
+     -a "$FREE_SPACE" -lt "$FREE_SPACE_NEEDED" ]]
 then
     echo
     echo "ERROR: there is not enough disk free space"
@@ -116,20 +116,20 @@ apt-get $APT_PROXY_OPTION -y install git
 # -----------------------------------------------------------------------------
 # CLONING THE GIT REPO
 # -----------------------------------------------------------------------------
-if [ "$DONT_CLONE_GIT_REPO" != true ]
+if [[ "$DONT_CLONE_GIT_REPO" != true ]]
 then
     rm -rf $BASE_TMP_DIR
     git clone --depth=1 -b $BASE_BRANCH $BASE_REPO $BASE_TMP_DIR
 
     rm -rf $APP_TMP_DIR
-    [ -n "$APP_REPO" ] && \
+    [[ -n "$APP_REPO" ]] && \
         git clone --depth=1 -b $APP_BRANCH $APP_REPO $APP_TMP_DIR
 fi
 
 # -----------------------------------------------------------------------------
 # MERGE THE BASE FOLDER WITH THE APPLICATION FOLDER
 # -----------------------------------------------------------------------------
-if [ "$BASE_INSTALLER" != "$APP_INSTALLER" ]
+if [[ "$BASE_INSTALLER" != "$APP_INSTALLER" ]]
 then
     rm -rf $BASE_TMP_DIR/{.git,.gitignore}
     rsync -av $APP_TMP_DIR/ $BASE_TMP_DIR/
@@ -149,7 +149,7 @@ export MACHINE_HOST=$MACHINES/eb-host
 export MACHINE_BULLSEYE=$MACHINES/eb-bullseye
 
 cd $INSTALLER
-[ -f "init.sh" ] && bash init.sh
+[[ -f "init.sh" ]] && bash init.sh
 
 for sub in $(ls *.sh | grep -v init.sh)
 do

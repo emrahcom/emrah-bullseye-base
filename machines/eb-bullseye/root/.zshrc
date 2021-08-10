@@ -47,23 +47,3 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
 source /usr/share/autojump/autojump.sh
-
-apt-get() {
-    if [[ $1 == "clean" ]]
-    then
-        echo "Please, don't use 'apt-get clean' command"
-        echo "because LXC containers share the same archive directory"
-    else
-        command apt-get $@
-    fi
-}
-
-apt() {
-    if [[ $1 == "clean" ]]
-    then
-        echo "Please, don't use 'apt clean' command"
-        echo "because LXC containers share the same archive directory"
-    else
-        command apt $@
-    fi
-}
