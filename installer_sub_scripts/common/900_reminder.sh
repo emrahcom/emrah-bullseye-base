@@ -14,8 +14,7 @@ source $INSTALLER/000_source
 echo
 echo "------------------------- REMINDER ------------------------"
 
-if [[ "0" = "$SWAP" ]]
-then
+if [[ "0" = "$SWAP" ]]; then
     echo
     echo "Add swap file to the host, if there is no swap (mostly on cloud)"
     echo ">>> dd if=/dev/zero of=/swapfile bs=1M count=2048"

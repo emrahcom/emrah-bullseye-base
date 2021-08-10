@@ -60,8 +60,7 @@ export FREE_SPACE=$((df | grep "/var/lib/lxc$"
 # CHECKING THE HOST (which will host the LXC containers)
 # -----------------------------------------------------------------------------
 # If the current user is not 'root', cancel the installation.
-if [[ "root" != "$(whoami)" ]]
-then
+if [[ "root" != "$(whoami)" ]]; then
     echo
     echo "ERROR: unauthorized user"
     echo "Please, run the installation script as 'root'"
@@ -69,9 +68,8 @@ then
 fi
 
 # If the OS release is unsupported, cancel the installation.
-if [[ "$DONT_CHECK_OS_RELEASE" != true \
-     -a -z "$(grep "$RELEASE" /etc/os-release)" ]]
-then
+if [[ "$DONT_CHECK_OS_RELEASE" != true ]] && \
+   [[ -z "$(grep "$RELEASE" /etc/os-release)" ]]; then
     echo
     echo "ERROR: unsupported OS release"
     echo "Please, use '$RELEASE' on host machine"
@@ -79,9 +77,8 @@ then
 fi
 
 # If there is not enough disk free space, cancel the installation.
-if [[ "$DONT_CHECK_FREE_SPACE" != true \
-     -a "$FREE_SPACE" -lt "$FREE_SPACE_NEEDED" ]]
-then
+if [[ "$DONT_CHECK_FREE_SPACE" != true ]] && \
+   [[ "$FREE_SPACE" -lt "$FREE_SPACE_NEEDED" ]]; then
     echo
     echo "ERROR: there is not enough disk free space"
     echo
@@ -116,8 +113,7 @@ apt-get $APT_PROXY_OPTION -y install git
 # -----------------------------------------------------------------------------
 # CLONING THE GIT REPO
 # -----------------------------------------------------------------------------
-if [[ "$DONT_CLONE_GIT_REPO" != true ]]
-then
+if [[ "$DONT_CLONE_GIT_REPO" != true ]]; then
     rm -rf $BASE_TMP_DIR
     git clone --depth=1 -b $BASE_BRANCH $BASE_REPO $BASE_TMP_DIR
 
@@ -129,8 +125,7 @@ fi
 # -----------------------------------------------------------------------------
 # MERGE THE BASE FOLDER WITH THE APPLICATION FOLDER
 # -----------------------------------------------------------------------------
-if [[ "$BASE_INSTALLER" != "$APP_INSTALLER" ]]
-then
+if [[ "$BASE_INSTALLER" != "$APP_INSTALLER" ]]; then
     rm -rf $BASE_TMP_DIR/{.git,.gitignore}
     rsync -av $APP_TMP_DIR/ $BASE_TMP_DIR/
     rm -rf $APP_TMP_DIR
@@ -151,8 +146,7 @@ export MACHINE_BULLSEYE=$MACHINES/eb-bullseye
 cd $INSTALLER
 [[ -f "init.sh" ]] && bash init.sh
 
-for sub in $(ls *.sh | grep -v init.sh)
-do
+for sub in $(ls *.sh | grep -v init.sh); do
     bash $sub
 done
 

@@ -55,8 +55,7 @@ echo "# ----- ip route -----" >> $OLD_FILES/network.status
 ip route >> $OLD_FILES/network.status
 
 # nftables status
-if [[ "$(systemctl is-active nftables.service)" = "active" ]]
-then
+if [[ "$(systemctl is-active nftables.service)" = "active" ]]; then
     echo "# ----- nft list ruleset -----" >> $OLD_FILES/nftables.status
     nft list ruleset >> $OLD_FILES/nftables.status
 fi
@@ -133,8 +132,7 @@ sed -i "s/___BRIDGE___/${BRIDGE}/g" /etc/dnsmasq.d/eb_interface
 # NFTABLES
 # -----------------------------------------------------------------------------
 # recreate the custom tables
-if [[ "$RECREATE_CUSTOM_NFTABLES" = true ]]
-then
+if [[ "$RECREATE_CUSTOM_NFTABLES" = true ]]; then
     nft delete table inet eb-filter 2>/dev/null || true
     nft delete table ip eb-nat 2>/dev/null || true
 fi
