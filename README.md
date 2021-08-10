@@ -56,4 +56,4 @@ Please, use one of the followings as a host:
   ```
 
 - a physical machine with a fresh installed
-  [Debian 11 Bullseye)](https://www.debian.org/distrib/netinst)
+  [Debian 11 Bullseye)](https://www.debian.org/releases/bullseye/debian-installer/)
