@@ -65,9 +65,6 @@ fi
 # -----------------------------------------------------------------------------
 export DEBIAN_FRONTEND=noninteractive
 
-# removed packages
-apt-get -y remove iptables
-
 # added packages
 apt-get $APT_PROXY_OPTION -y install nftables
 
