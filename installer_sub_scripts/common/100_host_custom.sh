@@ -42,7 +42,7 @@ apt-get $APT_PROXY_OPTION -y install rsyslog
 # ROOT USER
 # -----------------------------------------------------------------------------
 # rc files
-[[ ! -f "/root/.bashrc" ]] && cp root/.bashrc /root/
-[[ ! -f "/root/.vimrc" ]] && cp root/.vimrc /root/
-[[ ! -f "/root/.zshrc" ]] && cp root/.zshrc /root/
-[[ ! -f "/root/.tmux.conf" ]] && cp root/.tmux.conf /root/
+[[ ! -f "/root/.bashrc" ]] && cp root/.bashrc /root/ || true
+[[ ! -f "/root/.vimrc" ]] && cp root/.vimrc /root/ || true
+[[ ! -f "/root/.zshrc" ]] && cp root/.zshrc /root/ || true
+[[ ! -f "/root/.tmux.conf" ]] && cp root/.tmux.conf /root/ || true
