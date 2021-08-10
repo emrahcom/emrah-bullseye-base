@@ -23,4 +23,4 @@ flush ruleset
 EOF
 
 # save ruleset
-nft list ruleset -nn >> /etc/nftables.conf
+nft -n list ruleset >> /etc/nftables.conf
