@@ -4,7 +4,7 @@
 # NETWORK.SH
 # -----------------------------------------------------------------------------
 set -e
-source $INSTALLER/000_source
+source $INSTALLER/000-source
 
 # -----------------------------------------------------------------------------
 # ENVIRONMENT
@@ -16,17 +16,17 @@ cd $MACHINES/$MACH
 DEFAULT_ROUTE=$(ip route | egrep '^default ' | head -n1)
 PUBLIC_INTERFACE=${DEFAULT_ROUTE##*dev }
 PUBLIC_INTERFACE=${PUBLIC_INTERFACE/% */}
-echo PUBLIC_INTERFACE="$PUBLIC_INTERFACE" >> $INSTALLER/000_source
+echo PUBLIC_INTERFACE="$PUBLIC_INTERFACE" >> $INSTALLER/000-source
 
 # IP address
 DNS_RECORD=$(grep 'address=/host/' etc/dnsmasq.d/eb-hosts | head -n1)
 IP=${DNS_RECORD##*/}
-echo HOST="$IP" >> $INSTALLER/000_source
+echo HOST="$IP" >> $INSTALLER/000-source
 
 # remote IP address
 REMOTE_IP=$(ip addr show $PUBLIC_INTERFACE | ack "$PUBLIC_INTERFACE$" | \
             xargs | cut -d " " -f2 | cut -d "/" -f1)
-echo REMOTE_IP="$REMOTE_IP" >> $INSTALLER/000_source
+echo REMOTE_IP="$REMOTE_IP" >> $INSTALLER/000-source
 
 # -----------------------------------------------------------------------------
 # INIT

@@ -2,7 +2,7 @@
 # BULLSEYE.SH
 # -----------------------------------------------------------------------------
 set -e
-source $INSTALLER/000_source
+source $INSTALLER/000-source
 
 # -----------------------------------------------------------------------------
 # ENVIRONMENT
@@ -14,7 +14,7 @@ ROOTFS="/var/lib/lxc/$MACH/rootfs"
 DNS_RECORD=$(grep "address=/$MACH/" /etc/dnsmasq.d/eb-hosts | head -n1)
 IP=${DNS_RECORD##*/}
 SSH_PORT="30$(printf %03d ${IP##*.})"
-echo BULLSEYE="$IP" >> $INSTALLER/000_source
+echo BULLSEYE="$IP" >> $INSTALLER/000-source
 
 # -----------------------------------------------------------------------------
 # NFTABLES RULES
@@ -39,7 +39,7 @@ echo "-------------------------- $MACH --------------------------"
 EXISTS=$(lxc-info -n $MACH | egrep '^State' || true)
 if [ -n "$EXISTS" -a "$REINSTALL_BULLSEYE_IF_EXISTS" != true ]
 then
-    echo BULLSEYE_SKIPPED=true >> $INSTALLER/000_source
+    echo BULLSEYE_SKIPPED=true >> $INSTALLER/000-source
 
     echo "Already installed. Skipped..."
     echo

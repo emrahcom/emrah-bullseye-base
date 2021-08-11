@@ -1,1 +1,0 @@
-../common/800_post_install.sh

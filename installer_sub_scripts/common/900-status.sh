@@ -1,26 +1,26 @@
 #!/bin/bash
 
 # -----------------------------------------------------------------------------
-# POST_INSTALL_NFTABLES.SH
+# STATUS.SH
 # -----------------------------------------------------------------------------
 set -e
-source $INSTALLER/000_source
+source $INSTALLER/000-source
 
 # -----------------------------------------------------------------------------
 # INIT
 # -----------------------------------------------------------------------------
-[[ "$DONT_RUN_POST_INSTALL" = true ]] && exit
+[[ "$DONT_RUN_STATUS" = true ]] && exit
+
+echo
+echo "------------------------- STATUS --------------------------"
 
 # -----------------------------------------------------------------------------
-# NFTABLES
+# SHOW STATUS
 # -----------------------------------------------------------------------------
-# recreate nftables.conf
-cat <<EOF > /etc/nftables.conf
-#!/usr/sbin/nft -f
+# network
+ip addr
+echo
 
-flush ruleset
-
-EOF
-
-# save ruleset
-nft -n list ruleset >> /etc/nftables.conf
+# LXC containers
+lxc-ls -f
+echo

@@ -1,8 +1,8 @@
 # -----------------------------------------------------------------------------
-# BULLSEYE_UPDATE.SH
+# BULLSEYE_CUSTOM.SH
 # -----------------------------------------------------------------------------
 set -e
-source $INSTALLER/000_source
+source $INSTALLER/000-source
 
 # -----------------------------------------------------------------------------
 # ENVIRONMENT
@@ -15,16 +15,16 @@ ROOTFS="/var/lib/lxc/$MACH/rootfs"
 # -----------------------------------------------------------------------------
 # INIT
 # -----------------------------------------------------------------------------
-[ "$BULLSEYE_SKIPPED" != true ] && exit
-[ "$DONT_RUN_BULLSEYE_UPDATE" = true ] && exit
+[ "$BULLSEYE_SKIPPED" = true ] && exit
+[ "$DONT_RUN_BULLSEYE_CUSTOM" = true ] && exit
 
 echo
-echo "---------------------- $MACH UPDATE -----------------------"
+echo "---------------------- $MACH CUSTOM -----------------------"
 
 # start container
 lxc-start -n $MACH -d
 lxc-wait -n $MACH -s RUNNING
-lxc-attach -n $MACH -- ping -c1 deb.debian.org || sleep 3
+sleep 1
 
 # -----------------------------------------------------------------------------
 # PACKAGES
@@ -41,6 +41,27 @@ lxc-attach -n $MACH -- \
      done
 
      apt-get $APT_PROXY_OPTION -y dist-upgrade"
+
+# packages
+lxc-attach -n $MACH -- \
+    zsh -c \
+    "set -e
+     export DEBIAN_FRONTEND=noninteractive
+     apt-get $APT_PROXY_OPTION -y install less tmux vim autojump
+     apt-get $APT_PROXY_OPTION -y install curl dnsutils iputils-ping
+     apt-get $APT_PROXY_OPTION -y install net-tools ngrep ncat
+     apt-get $APT_PROXY_OPTION -y install htop bmon bwm-ng
+     apt-get $APT_PROXY_OPTION -y install rsync bzip2 man-db ack"
+
+# -----------------------------------------------------------------------------
+# ROOT USER
+# -----------------------------------------------------------------------------
+# shell
+lxc-attach -n $MACH -- chsh -s /bin/zsh root
+cp root/.bashrc $ROOTFS/root/
+cp root/.vimrc $ROOTFS/root/
+cp root/.zshrc $ROOTFS/root/
+cp root/.tmux.conf $ROOTFS/root/
 
 # -----------------------------------------------------------------------------
 # CONTAINER SERVICES
