@@ -109,13 +109,6 @@ sysctl -p /etc/sysctl.d/eb_ip_forward.conf || true
 # LXC-NET
 # -----------------------------------------------------------------------------
 cp etc/default/lxc-net /etc/default/
-
-# remove lxcbr0 (which is default for LXC) if exists
-if brctl show lxcbr0; then
-    ip link set dev lxcbr0 down
-    brctl delbr lxcbr0
-fi
-
 systemctl restart lxc-net.service
 
 # -----------------------------------------------------------------------------
