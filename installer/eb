@@ -138,7 +138,7 @@ mv $BASE_TMP_DIR $APP_TMP_DIR
 # -----------------------------------------------------------------------------
 export TMP=$APP_TMP_DIR
 export ROOTDIR=$BASEDIR/$TMP
-export INSTALLER=$ROOTDIR/installer_sub_scripts/$APP_INSTALLER
+export INSTALLER=$ROOTDIR/installer-sub-scripts/$APP_INSTALLER
 export MACHINES=$ROOTDIR/machines
 export MACHINE_HOST=$MACHINES/eb-host
 export MACHINE_BULLSEYE=$MACHINES/eb-bullseye
