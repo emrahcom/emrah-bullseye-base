@@ -110,7 +110,7 @@ sysctl -p /etc/sysctl.d/eb_ip_forward.conf || true
 # -----------------------------------------------------------------------------
 cp etc/default/lxc-net /etc/default/
 
-# remove default bridge if exists
+# remove lxcbr0 (which is default for LXC) if exists
 if brctl show lxcbr0; then
     ip link set dev lxcbr0 down
     brctl delbr lxcbr0
@@ -119,15 +119,8 @@ fi
 systemctl restart lxc-net.service
 
 # -----------------------------------------------------------------------------
-# BRIDGE CONFIG
+# DUMMY INTERFACE & BRIDGE
 # -----------------------------------------------------------------------------
-# private bridge interface for the containers
-BR_EXISTS=$(brctl show | egrep "^$BRIDGE\s" || true)
-[[ -z "$BR_EXISTS" ]] && brctl addbr $BRIDGE
-ip link set $BRIDGE up
-IP_EXISTS=$(ip a show dev $BRIDGE | egrep "inet $IP/24" || true)
-[[ -z "$IP_EXISTS" ]] && ip addr add dev $BRIDGE $IP/24 brd 172.22.22.255
-
 # the random MAC address for the dummy interface
 MAC_ADDRESS=$(date +'52:54:%d:%H:%M:%S')
 
@@ -138,6 +131,9 @@ sed -i "s/___MAC_ADDRESS___/${MAC_ADDRESS}/g" \
 sed -i "s/___BRIDGE___/${BRIDGE}/g" /etc/network/interfaces.d/eb_bridge.cfg
 cp etc/dnsmasq.d/eb_interface /etc/dnsmasq.d/
 sed -i "s/___BRIDGE___/${BRIDGE}/g" /etc/dnsmasq.d/eb_interface
+
+ifup edummy0
+ifup $BRIDGE
 
 # -----------------------------------------------------------------------------
 # NFTABLES
