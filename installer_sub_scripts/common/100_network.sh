@@ -19,7 +19,7 @@ PUBLIC_INTERFACE=${PUBLIC_INTERFACE/% */}
 echo PUBLIC_INTERFACE="$PUBLIC_INTERFACE" >> $INSTALLER/000_source
 
 # IP address
-DNS_RECORD=$(grep 'address=/host/' etc/dnsmasq.d/eb_hosts | head -n1)
+DNS_RECORD=$(grep 'address=/host/' etc/dnsmasq.d/eb-hosts | head -n1)
 IP=${DNS_RECORD##*/}
 echo HOST="$IP" >> $INSTALLER/000_source
 
@@ -39,13 +39,13 @@ echo "------------------------ NETWORK --------------------------"
 # -----------------------------------------------------------------------------
 # BACKUP & STATUS
 # -----------------------------------------------------------------------------
-OLD_FILES="/root/eb_old_files/$DATE"
+OLD_FILES="/root/eb-old-files/$DATE"
 mkdir -p $OLD_FILES
 
 # backup the files which will be changed
 [[ -f /etc/nftables.conf ]] && cp /etc/nftables.conf $OLD_FILES/
 [[ -f /etc/network/interfaces ]] && cp /etc/network/interfaces $OLD_FILES/
-[[ -f /etc/dnsmasq.d/eb_hosts ]] && cp /etc/dnsmasq.d/eb_hosts $OLD_FILES/
+[[ -f /etc/dnsmasq.d/eb-hosts ]] && cp /etc/dnsmasq.d/eb-hosts $OLD_FILES/
 [[ -f /etc/default/lxc-net ]] && cp /etc/default/lxc-net $OLD_FILES/
 
 # network status
@@ -73,8 +73,8 @@ apt-get $APT_PROXY_OPTION -y install nftables
 # NETWORK CONFIG
 # -----------------------------------------------------------------------------
 # changed/added system files
-cp etc/dnsmasq.d/eb_hosts /etc/dnsmasq.d/
-cp etc/dnsmasq.d/eb_resolv /etc/dnsmasq.d/
+cp etc/dnsmasq.d/eb-hosts /etc/dnsmasq.d/
+cp etc/dnsmasq.d/eb-resolv /etc/dnsmasq.d/
 
 # /etc/network/interfaces
 [[ -z "$(egrep '^source-directory\s*interfaces.d' /etc/network/interfaces || true)" ]] && \
@@ -83,9 +83,9 @@ cp etc/dnsmasq.d/eb_resolv /etc/dnsmasq.d/
 [[ -z "$(egrep '^source\s*/etc/network/interfaces.d/\*$' /etc/network/interfaces || true)" ]] && \
 [[ -z "$(egrep '^source\s*interfaces.d/\*\.cfg' /etc/network/interfaces || true)" ]] && \
 [[ -z "$(egrep '^source\s*/etc/network/interfaces.d/\*\.cfg' /etc/network/interfaces || true)" ]] && \
-[[ -z "$(egrep '^source\s*interfaces.d/eb_bridge.cfg' /etc/network/interfaces || true)" ]] && \
-[[ -z "$(egrep '^source\s*/etc/network/interfaces.d/eb_bridge.cfg' /etc/network/interfaces || true)" ]] && \
-echo -e "\nsource /etc/network/interfaces.d/eb_bridge.cfg" >> /etc/network/interfaces
+[[ -z "$(egrep '^source\s*interfaces.d/eb-bridge.cfg' /etc/network/interfaces || true)" ]] && \
+[[ -z "$(egrep '^source\s*/etc/network/interfaces.d/eb-bridge.cfg' /etc/network/interfaces || true)" ]] && \
+echo -e "\nsource /etc/network/interfaces.d/eb-bridge.cfg" >> /etc/network/interfaces
 
 # /etc/network/cloud-interfaces-template
 if [[ -f "/etc/network/cloud-interfaces-template" ]]; then
@@ -95,14 +95,14 @@ if [[ -f "/etc/network/cloud-interfaces-template" ]]; then
     [[ -z "$(egrep '^source\s*/etc/network/interfaces.d/\*$' /etc/network/cloud-interfaces-template || true)" ]] && \
     [[ -z "$(egrep '^source\s*interfaces.d/\*\.cfg' /etc/network/cloud-interfaces-template || true)" ]] && \
     [[ -z "$(egrep '^source\s*/etc/network/interfaces.d/\*\.cfg' /etc/network/cloud-interfaces-template || true)" ]] && \
-    [[ -z "$(egrep '^source\s*interfaces.d/eb_bridge.cfg' /etc/network/cloud-interfaces-template || true)" ]] && \
-    [[ -z "$(egrep '^source\s*/etc/network/interfaces.d/eb_bridge.cfg' /etc/network/cloud-interfaces-template || true)" ]] && \
-    echo -e "\nsource /etc/network/interfaces.d/eb_bridge.cfg" >> /etc/network/cloud-interfaces-template
+    [[ -z "$(egrep '^source\s*interfaces.d/eb-bridge.cfg' /etc/network/cloud-interfaces-template || true)" ]] && \
+    [[ -z "$(egrep '^source\s*/etc/network/interfaces.d/eb-bridge.cfg' /etc/network/cloud-interfaces-template || true)" ]] && \
+    echo -e "\nsource /etc/network/interfaces.d/eb-bridge.cfg" >> /etc/network/cloud-interfaces-template
 fi
 
 # IP forwarding
-cp etc/sysctl.d/eb_ip_forward.conf /etc/sysctl.d/
-sysctl -p /etc/sysctl.d/eb_ip_forward.conf || true
+cp etc/sysctl.d/eb-ip-forward.conf /etc/sysctl.d/
+sysctl -p /etc/sysctl.d/eb-ip-forward.conf || true
 [[ "$(cat /proc/sys/net/ipv4/ip_forward)" != 1 ]] && false
 
 # -----------------------------------------------------------------------------
@@ -117,13 +117,12 @@ systemctl restart lxc-net.service
 # the random MAC address for the dummy interface
 MAC_ADDRESS=$(date +'52:54:%d:%H:%M:%S')
 
-rm -f /etc/network/interfaces.d/eb_bridge
-cp etc/network/interfaces.d/eb_bridge.cfg /etc/network/interfaces.d/
+cp etc/network/interfaces.d/eb-bridge.cfg /etc/network/interfaces.d/
 sed -i "s/___MAC_ADDRESS___/${MAC_ADDRESS}/g" \
-    /etc/network/interfaces.d/eb_bridge.cfg
-sed -i "s/___BRIDGE___/${BRIDGE}/g" /etc/network/interfaces.d/eb_bridge.cfg
-cp etc/dnsmasq.d/eb_interface /etc/dnsmasq.d/
-sed -i "s/___BRIDGE___/${BRIDGE}/g" /etc/dnsmasq.d/eb_interface
+    /etc/network/interfaces.d/eb-bridge.cfg
+sed -i "s/___BRIDGE___/${BRIDGE}/g" /etc/network/interfaces.d/eb-bridge.cfg
+cp etc/dnsmasq.d/eb-interface /etc/dnsmasq.d/
+sed -i "s/___BRIDGE___/${BRIDGE}/g" /etc/dnsmasq.d/eb-interface
 
 ifup edummy0
 ifup $BRIDGE

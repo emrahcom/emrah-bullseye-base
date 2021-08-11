@@ -11,7 +11,7 @@ MACH="eb-bullseye"
 cd $MACHINES/$MACH
 
 ROOTFS="/var/lib/lxc/$MACH/rootfs"
-DNS_RECORD=$(grep "address=/$MACH/" /etc/dnsmasq.d/eb_hosts | head -n1)
+DNS_RECORD=$(grep "address=/$MACH/" /etc/dnsmasq.d/eb-hosts | head -n1)
 IP=${DNS_RECORD##*/}
 SSH_PORT="30$(printf %03d ${IP##*.})"
 echo BULLSEYE="$IP" >> $INSTALLER/000_source
@@ -68,7 +68,7 @@ lxc-create -n $MACH -t download -P /var/lib/lxc/ -- \
 
 # shared directories
 mkdir -p $SHARED/cache
-cp -arp $MACHINE_HOST/usr/local/eb/cache/bullseye_apt_archives $SHARED/cache/
+cp -arp $MACHINE_HOST/usr/local/eb/cache/bullseye-apt-archives $SHARED/cache/
 
 # container config
 rm -rf $ROOTFS/var/cache/apt/archives
@@ -79,7 +79,7 @@ sed -i 's/^lxc.apparmor.profile.*$/lxc.apparmor.profile = unconfined/' \
     /var/lib/lxc/$MACH/config
 
 cat >> /var/lib/lxc/$MACH/config <<EOF
-lxc.mount.entry = $SHARED/cache/bullseye_apt_archives \
+lxc.mount.entry = $SHARED/cache/bullseye-apt-archives \
 var/cache/apt/archives none bind 0 0
 
 # Network configuration
@@ -107,7 +107,7 @@ sleep 1
 # -----------------------------------------------------------------------------
 # ca-certificates for https repo
 apt-get $APT_PROXY_OPTION \
-    -o dir::cache::archives="/usr/local/eb/cache/bullseye_apt_archives/" \
+    -o dir::cache::archives="/usr/local/eb/cache/bullseye-apt-archives/" \
     -dy reinstall ca-certificates openssl
 
 lxc-attach -n $MACH -- \
