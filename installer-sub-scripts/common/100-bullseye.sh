@@ -28,7 +28,7 @@ nft add element eb-nat tcp2port { $SSH_PORT : 22 }
 # -----------------------------------------------------------------------------
 # INIT
 # -----------------------------------------------------------------------------
-[ "$DONT_RUN_BULLSEYE" = true ] && exit
+[[ "$DONT_RUN_BULLSEYE" = true ]] && exit
 
 echo
 echo "-------------------------- $MACH --------------------------"
@@ -37,8 +37,7 @@ echo "-------------------------- $MACH --------------------------"
 # REINSTALL_IF_EXISTS
 # -----------------------------------------------------------------------------
 EXISTS=$(lxc-info -n $MACH | egrep '^State' || true)
-if [ -n "$EXISTS" -a "$REINSTALL_BULLSEYE_IF_EXISTS" != true ]
-then
+if [[ -n "$EXISTS" ]] && [[ "$REINSTALL_BULLSEYE_IF_EXISTS" != true ]]; then
     echo BULLSEYE_SKIPPED=true >> $INSTALLER/000-source
 
     echo "Already installed. Skipped..."
@@ -163,8 +162,7 @@ cp etc/ssh/sshd_config.d/eb.conf $ROOTFS/etc/ssh/sshd_config.d/
 # ROOT USER
 # -----------------------------------------------------------------------------
 # ssh
-if [ -f /root/.ssh/authorized_keys ]
-then
+if [[ -f /root/.ssh/authorized_keys ]]; then
     mkdir $ROOTFS/root/.ssh
     cp /root/.ssh/authorized_keys $ROOTFS/root/.ssh/
     chmod 700 $ROOTFS/root/.ssh

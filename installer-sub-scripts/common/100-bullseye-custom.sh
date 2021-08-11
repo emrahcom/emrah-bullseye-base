@@ -15,8 +15,8 @@ ROOTFS="/var/lib/lxc/$MACH/rootfs"
 # -----------------------------------------------------------------------------
 # INIT
 # -----------------------------------------------------------------------------
-[ "$BULLSEYE_SKIPPED" = true ] && exit
-[ "$DONT_RUN_BULLSEYE_CUSTOM" = true ] && exit
+[[ "$BULLSEYE_SKIPPED" = true ]] && exit
+[[ "$DONT_RUN_BULLSEYE_CUSTOM" = true ]] && exit
 
 echo
 echo "---------------------- $MACH CUSTOM -----------------------"

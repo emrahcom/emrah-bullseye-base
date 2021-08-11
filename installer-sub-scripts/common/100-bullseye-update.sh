@@ -15,8 +15,8 @@ ROOTFS="/var/lib/lxc/$MACH/rootfs"
 # -----------------------------------------------------------------------------
 # INIT
 # -----------------------------------------------------------------------------
-[ "$BULLSEYE_SKIPPED" != true ] && exit
-[ "$DONT_RUN_BULLSEYE_UPDATE" = true ] && exit
+[[ "$BULLSEYE_SKIPPED" != true ]] && exit
+[[ "$DONT_RUN_BULLSEYE_UPDATE" = true ]] && exit
 
 echo
 echo "---------------------- $MACH UPDATE -----------------------"
