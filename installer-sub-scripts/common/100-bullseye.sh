@@ -109,51 +109,52 @@ apt-get $APT_PROXY_OPTION \
     -o dir::cache::archives="/usr/local/eb/cache/bullseye-apt-archives/" \
     -dy reinstall ca-certificates openssl
 
-lxc-attach -n $MACH -- \
-    bash -c \
-    "set -e
-     export DEBIAN_FRONTEND=noninteractive
-     apt-get -y install ca-certificates"
+lxc-attach -n $MACH -- bash <<EOF
+set -e
+export DEBIAN_FRONTEND=noninteractive
+apt-get -y install ca-certificates
+EOF
 
 # update
-lxc-attach -n $MACH -- \
-    bash -c \
-    "set -e
-     export DEBIAN_FRONTEND=noninteractive
+lxc-attach -n $MACH -- bash <<EOF
+set -e
+export DEBIAN_FRONTEND=noninteractive
 
-     for i in 1 2 3; do
-         sleep 1
-         apt-get -y --allow-releaseinfo-change update && sleep 3 && break
-     done
+for i in 1 2 3; do
+    sleep 1
+    apt-get -y --allow-releaseinfo-change update && sleep 3 && break
+done
 
-     apt-get $APT_PROXY_OPTION -y dist-upgrade"
+apt-get $APT_PROXY_OPTION -y dist-upgrade
+EOF
 
 # packages
-lxc-attach -n $MACH -- \
-    bash -c \
-    "set -e
-     export DEBIAN_FRONTEND=noninteractive
-     apt-get $APT_PROXY_OPTION -y install apt-utils
-     apt-get $APT_PROXY_OPTION -y install zsh"
-lxc-attach -n $MACH -- \
-    zsh -c \
-    "set -e
-     export DEBIAN_FRONTEND=noninteractive
-     apt-get $APT_PROXY_OPTION -y install openssh-server openssh-client
-     apt-get $APT_PROXY_OPTION -y install cron logrotate
-     apt-get $APT_PROXY_OPTION -y install dbus libpam-systemd
-     apt-get $APT_PROXY_OPTION -y install wget ca-certificates openssl"
+lxc-attach -n $MACH -- bash <<EOF
+set -e
+export DEBIAN_FRONTEND=noninteractive
+apt-get $APT_PROXY_OPTION -y install apt-utils
+apt-get $APT_PROXY_OPTION -y install zsh
+EOF
+
+lxc-attach -n $MACH -- zsh <<EOF
+set -e
+export DEBIAN_FRONTEND=noninteractive
+apt-get $APT_PROXY_OPTION -y install openssh-server openssh-client
+apt-get $APT_PROXY_OPTION -y install cron logrotate
+apt-get $APT_PROXY_OPTION -y install dbus libpam-systemd
+apt-get $APT_PROXY_OPTION -y install wget ca-certificates openssl
+EOF
 
 # -----------------------------------------------------------------------------
 # SYSTEM CONFIGURATION
 # -----------------------------------------------------------------------------
 # tzdata
-lxc-attach -n $MACH -- \
-    zsh -c \
-    "set -e
-     echo $TIMEZONE > /etc/timezone
-     rm -f /etc/localtime
-     ln -s /usr/share/zoneinfo/$TIMEZONE /etc/localtime"
+lxc-attach -n $MACH -- zsh <<EOF
+set -e
+echo $TIMEZONE > /etc/timezone
+rm -f /etc/localtime
+ln -s /usr/share/zoneinfo/$TIMEZONE /etc/localtime
+EOF
 
 # ssh
 cp etc/ssh/sshd_config.d/eb.conf $ROOTFS/etc/ssh/sshd_config.d/

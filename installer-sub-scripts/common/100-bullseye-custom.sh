@@ -30,28 +30,28 @@ sleep 1
 # PACKAGES
 # -----------------------------------------------------------------------------
 # update
-lxc-attach -n $MACH -- \
-    zsh -c \
-    "set -e
-     export DEBIAN_FRONTEND=noninteractive
+lxc-attach -n $MACH -- zsh <<EOF
+set -e
+export DEBIAN_FRONTEND=noninteractive
 
-     for i in 1 2 3; do
-         sleep 1
-         apt-get -y --allow-releaseinfo-change update && sleep 3 && break
-     done
+for i in 1 2 3; do
+    sleep 1
+    apt-get -y --allow-releaseinfo-change update && sleep 3 && break
+done
 
-     apt-get $APT_PROXY_OPTION -y dist-upgrade"
+apt-get $APT_PROXY_OPTION -y dist-upgrade
+EOF
 
 # packages
-lxc-attach -n $MACH -- \
-    zsh -c \
-    "set -e
-     export DEBIAN_FRONTEND=noninteractive
-     apt-get $APT_PROXY_OPTION -y install less tmux vim autojump
-     apt-get $APT_PROXY_OPTION -y install curl dnsutils iputils-ping
-     apt-get $APT_PROXY_OPTION -y install net-tools ngrep ncat
-     apt-get $APT_PROXY_OPTION -y install htop bmon bwm-ng
-     apt-get $APT_PROXY_OPTION -y install rsync bzip2 man-db ack"
+lxc-attach -n $MACH -- zsh <<EOF
+set -e
+export DEBIAN_FRONTEND=noninteractive
+apt-get $APT_PROXY_OPTION -y install less tmux vim autojump
+apt-get $APT_PROXY_OPTION -y install curl dnsutils iputils-ping
+apt-get $APT_PROXY_OPTION -y install net-tools ngrep ncat
+apt-get $APT_PROXY_OPTION -y install htop bmon bwm-ng
+apt-get $APT_PROXY_OPTION -y install rsync bzip2 man-db ack
+EOF
 
 # -----------------------------------------------------------------------------
 # ROOT USER

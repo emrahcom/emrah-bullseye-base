@@ -30,17 +30,17 @@ lxc-attach -n $MACH -- ping -c1 deb.debian.org || sleep 3
 # PACKAGES
 # -----------------------------------------------------------------------------
 # update
-lxc-attach -n $MACH -- \
-    zsh -c \
-    "set -e
-     export DEBIAN_FRONTEND=noninteractive
+lxc-attach -n $MACH -- zsh <<EOF
+set -e
+export DEBIAN_FRONTEND=noninteractive
 
-     for i in 1 2 3; do
-         sleep 1
-         apt-get -y --allow-releaseinfo-change update && sleep 3 && break
-     done
+for i in 1 2 3; do
+    sleep 1
+    apt-get -y --allow-releaseinfo-change update && sleep 3 && break
+done
 
-     apt-get $APT_PROXY_OPTION -y dist-upgrade"
+apt-get $APT_PROXY_OPTION -y dist-upgrade
+EOF
 
 # -----------------------------------------------------------------------------
 # CONTAINER SERVICES
