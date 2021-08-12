@@ -109,14 +109,14 @@ apt-get $APT_PROXY_OPTION \
     -o dir::cache::archives="/usr/local/eb/cache/bullseye-apt-archives/" \
     -dy reinstall ca-certificates openssl
 
-lxc-attach -n $MACH -- bash <<EOF
+lxc-attach -n $MACH -- bash <<EOS
 set -e
 export DEBIAN_FRONTEND=noninteractive
 apt-get -y install ca-certificates
-EOF
+EOS
 
 # update
-lxc-attach -n $MACH -- bash <<EOF
+lxc-attach -n $MACH -- bash <<EOS
 set -e
 export DEBIAN_FRONTEND=noninteractive
 
@@ -126,35 +126,35 @@ for i in 1 2 3; do
 done
 
 apt-get $APT_PROXY_OPTION -y dist-upgrade
-EOF
+EOS
 
 # packages
-lxc-attach -n $MACH -- bash <<EOF
+lxc-attach -n $MACH -- bash <<EOS
 set -e
 export DEBIAN_FRONTEND=noninteractive
 apt-get $APT_PROXY_OPTION -y install apt-utils
 apt-get $APT_PROXY_OPTION -y install zsh
-EOF
+EOS
 
-lxc-attach -n $MACH -- zsh <<EOF
+lxc-attach -n $MACH -- zsh <<EOS
 set -e
 export DEBIAN_FRONTEND=noninteractive
 apt-get $APT_PROXY_OPTION -y install openssh-server openssh-client
 apt-get $APT_PROXY_OPTION -y install cron logrotate
 apt-get $APT_PROXY_OPTION -y install dbus libpam-systemd
 apt-get $APT_PROXY_OPTION -y install wget ca-certificates openssl
-EOF
+EOS
 
 # -----------------------------------------------------------------------------
 # SYSTEM CONFIGURATION
 # -----------------------------------------------------------------------------
 # tzdata
-lxc-attach -n $MACH -- zsh <<EOF
+lxc-attach -n $MACH -- zsh <<EOS
 set -e
 echo $TIMEZONE > /etc/timezone
 rm -f /etc/localtime
 ln -s /usr/share/zoneinfo/$TIMEZONE /etc/localtime
-EOF
+EOS
 
 # ssh
 cp etc/ssh/sshd_config.d/eb.conf $ROOTFS/etc/ssh/sshd_config.d/

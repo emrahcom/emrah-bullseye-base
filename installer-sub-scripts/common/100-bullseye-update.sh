@@ -30,7 +30,7 @@ lxc-attach -n $MACH -- ping -c1 deb.debian.org || sleep 3
 # PACKAGES
 # -----------------------------------------------------------------------------
 # update
-lxc-attach -n $MACH -- zsh <<EOF
+lxc-attach -n $MACH -- zsh <<EOS
 set -e
 export DEBIAN_FRONTEND=noninteractive
 
@@ -40,7 +40,7 @@ for i in 1 2 3; do
 done
 
 apt-get $APT_PROXY_OPTION -y dist-upgrade
-EOF
+EOS
 
 # -----------------------------------------------------------------------------
 # CONTAINER SERVICES
