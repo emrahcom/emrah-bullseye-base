@@ -142,6 +142,7 @@ export INSTALLER=$ROOTDIR/installer-sub-scripts/$APP_INSTALLER
 export MACHINES=$ROOTDIR/machines
 export MACHINE_HOST=$MACHINES/eb-host
 export MACHINE_BULLSEYE=$MACHINES/eb-bullseye
+export MACHINE_COMMON=$MACHINES/common
 
 cd $INSTALLER
 [[ -f "init.sh" ]] && bash init.sh
