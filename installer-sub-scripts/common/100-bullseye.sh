@@ -112,7 +112,9 @@ apt-get $APT_PROXY_OPTION \
 lxc-attach -n $MACH -- bash <<EOS
 set -e
 export DEBIAN_FRONTEND=noninteractive
-apt-get -y install iputils-ping ca-certificates
+dpkg -i \$(ls -1t /var/cache/apt/archives/openssl_* | head -1)
+dpkg -i \$(ls -1t /var/cache/apt/archives/ca-certificates_* | head -1)
+dpkg -i \$(ls -1t /var/cache/apt/archives/iputils-ping_* | head -1)
 EOS
 
 # wait for the network to be up
