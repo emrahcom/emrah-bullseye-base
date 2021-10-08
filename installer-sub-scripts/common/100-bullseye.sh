@@ -107,24 +107,25 @@ sleep 1
 # ca-certificates for https repo
 apt-get $APT_PROXY_OPTION \
     -o dir::cache::archives="/usr/local/eb/cache/bullseye-apt-archives/" \
-    -dy reinstall ca-certificates openssl
+    -dy reinstall iputils-ping ca-certificates openssl
 
 lxc-attach -n $MACH -- bash <<EOS
 set -e
 export DEBIAN_FRONTEND=noninteractive
-apt-get -y install ca-certificates
+apt-get -y install iputils-ping ca-certificates
 EOS
+
+# wait for the network to be up
+for i in $(seq 0 9); do
+    lxc-attach -n $MACH -- ping -c1 host && break || true
+    sleep 1
+done
 
 # update
 lxc-attach -n $MACH -- bash <<EOS
 set -e
 export DEBIAN_FRONTEND=noninteractive
-
-for i in 1 2 3; do
-    sleep 1
-    apt-get -y --allow-releaseinfo-change update && sleep 3 && break
-done
-
+apt-get -y --allow-releaseinfo-change update
 apt-get $APT_PROXY_OPTION -y dist-upgrade
 EOS
 

@@ -56,3 +56,4 @@ apt-get $APT_PROXY_OPTION -y install lxc debootstrap bridge-utils
 apt-get $APT_PROXY_OPTION -y install dnsmasq dnsutils
 apt-get $APT_PROXY_OPTION -y install xz-utils gnupg pwgen
 apt-get $APT_PROXY_OPTION -y install wget ca-certificates
+apt-get $APT_PROXY_OPTION -y install iputils-ping
