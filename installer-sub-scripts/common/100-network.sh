@@ -124,8 +124,8 @@ sed -i "s/___BRIDGE___/${BRIDGE}/g" /etc/network/interfaces.d/eb-bridge.cfg
 cp etc/dnsmasq.d/eb-interface /etc/dnsmasq.d/
 sed -i "s/___BRIDGE___/${BRIDGE}/g" /etc/dnsmasq.d/eb-interface
 
-ifup edummy0
-ifup $BRIDGE
+ifup -i /etc/network/interfaces.d/eb-bridge.cfg edummy0
+ifup -i /etc/network/interfaces.d/eb-bridge.cfg $BRIDGE
 
 # ------------------------------------------------------------------------------
 # NFTABLES
