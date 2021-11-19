@@ -43,6 +43,16 @@ apt-get $APT_PROXY_OPTION -y dist-upgrade
 EOS
 
 # ------------------------------------------------------------------------------
+# TIMEZONE
+# ------------------------------------------------------------------------------
+lxc-attach -n $MACH -- zsh <<EOS
+set -e
+echo $TIMEZONE > /etc/timezone
+rm -f /etc/localtime
+ln -s /usr/share/zoneinfo/$TIMEZONE /etc/localtime
+EOS
+
+# ------------------------------------------------------------------------------
 # CONTAINER SERVICES
 # ------------------------------------------------------------------------------
 lxc-stop -n $MACH
