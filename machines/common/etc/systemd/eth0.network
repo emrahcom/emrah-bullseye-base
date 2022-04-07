@@ -1,0 +1,7 @@
+[Match]
+Name=eth0
+
+[Network]
+Address=___IP___
+Gateway=___GATEWAY___
+DNS=___DNS___
