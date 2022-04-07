@@ -11,10 +11,6 @@ MACH="eb-bullseye"
 cd $MACHINES/$MACH
 
 ROOTFS="/var/lib/lxc/$MACH/rootfs"
-DNS_RECORD=$(grep "address=/$MACH/" /etc/dnsmasq.d/eb-hosts | head -n1)
-IP=${DNS_RECORD##*/}
-SSH_PORT="30$(printf %03d ${IP##*.})"
-echo BULLSEYE="$IP" >> $INSTALLER/000-source
 
 # ------------------------------------------------------------------------------
 # INIT
