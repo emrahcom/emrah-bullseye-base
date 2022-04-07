@@ -17,15 +17,6 @@ SSH_PORT="30$(printf %03d ${IP##*.})"
 echo BULLSEYE="$IP" >> $INSTALLER/000-source
 
 # ------------------------------------------------------------------------------
-# NFTABLES RULES
-# ------------------------------------------------------------------------------
-# public ssh
-nft delete element eb-nat tcp2ip { $SSH_PORT } 2>/dev/null || true
-nft add element eb-nat tcp2ip { $SSH_PORT : $IP }
-nft delete element eb-nat tcp2port { $SSH_PORT } 2>/dev/null || true
-nft add element eb-nat tcp2port { $SSH_PORT : 22 }
-
-# ------------------------------------------------------------------------------
 # INIT
 # ------------------------------------------------------------------------------
 [[ "$DONT_RUN_BULLSEYE" = true ]] && exit
