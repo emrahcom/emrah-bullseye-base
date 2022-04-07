@@ -90,6 +90,7 @@ lxc.net.0.ipv4.gateway = auto
 EOF
 
 # changed/added system files
+echo "DNS=$HOST" >> $ROOTFS/etc/systemd/resolved.conf
 cp etc/apt/sources.list $ROOTFS/etc/apt/
 cp etc/apt/apt.conf.d/80disable-recommends $ROOTFS/etc/apt/apt.conf.d/
 
