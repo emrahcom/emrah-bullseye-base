@@ -77,16 +77,14 @@ sed -i 's/^lxc.apparmor.profile.*$/lxc.apparmor.profile = unconfined/' \
     /var/lib/lxc/$MACH/config
 
 cat >> /var/lib/lxc/$MACH/config <<EOF
-lxc.mount.entry = $SHARED/cache/bullseye-apt-archives \
-var/cache/apt/archives none bind 0 0
-
 # Network configuration
 lxc.net.0.type = veth
 lxc.net.0.link = $BRIDGE
 lxc.net.0.name = eth0
 lxc.net.0.flags = up
-lxc.net.0.ipv4.address = $IP/24
-lxc.net.0.ipv4.gateway = auto
+
+lxc.mount.entry = $SHARED/cache/bullseye-apt-archives \
+var/cache/apt/archives none bind 0 0
 EOF
 
 # changed/added system files
