@@ -46,6 +46,9 @@ rm -rf /var/lib/lxc/$MACH
 sleep 1
 set -e
 
+# clear LXC templates cache to get the newest one
+rm -rf /var/cache/lxc/download/debian/bullseye/$ARCH/default
+
 # create the new one
 lxc-create -n $MACH -t download -P /var/lib/lxc/ -- \
     -d debian -r bullseye -a $ARCH \
