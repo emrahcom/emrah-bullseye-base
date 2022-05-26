@@ -1,2 +1,3 @@
 address=/host/172.22.22.1
+address=/host.loc/172.22.22.1
 address=/reserved/172.22.22.22

@@ -105,7 +105,7 @@ EOS
 
 # wait for the network to be up
 for i in $(seq 0 9); do
-    lxc-attach -n $MACH -- ping -c1 host && break || true
+    lxc-attach -n $MACH -- ping -c1 host.loc && break || true
     sleep 1
 done
 
