@@ -46,6 +46,7 @@ mkdir -p $OLD_FILES
 [[ -f /etc/nftables.conf ]] && cp /etc/nftables.conf $OLD_FILES/
 [[ -f /etc/network/interfaces ]] && cp /etc/network/interfaces $OLD_FILES/
 [[ -f /etc/dnsmasq.d/eb-hosts ]] && cp /etc/dnsmasq.d/eb-hosts $OLD_FILES/
+[[ -f /etc/default/dnsmasq ]] && cp /etc/default/dnsmasq $OLD_FILES/
 [[ -f /etc/default/lxc-net ]] && cp /etc/default/lxc-net $OLD_FILES/
 
 # network status
@@ -75,6 +76,8 @@ apt-get $APT_PROXY_OPTION -y install nftables
 # changed/added system files
 cp etc/dnsmasq.d/eb-hosts /etc/dnsmasq.d/
 cp etc/dnsmasq.d/eb-resolv /etc/dnsmasq.d/
+[[ -z "$(egrep '^DNSMASQ_EXCEPT' /etc/default/dnsmasq)" ]] && \
+    sed -i "s/^#DNSMASQ_EXCEPT/DNSMASQ_EXCEPT/" /etc/default/dnsmasq
 
 # /etc/network/interfaces
 [[ -z "$(egrep '^source-directory\s*interfaces.d' /etc/network/interfaces || true)" ]] && \
