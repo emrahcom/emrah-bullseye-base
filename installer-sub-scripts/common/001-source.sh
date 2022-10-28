@@ -41,9 +41,5 @@ echo "export RAM=$RAM" >> $SOURCE
 [[ -z "$TIMEZONE" ]] && \
     echo "export TIMEZONE=$(cat /etc/timezone)" >> $SOURCE
 
-# External IP (Internet IP)
-EXTERNAL_IP=$(dig -4 +short myip.opendns.com a @resolver1.opendns.com) || true
-echo EXTERNAL_IP="$EXTERNAL_IP" >> $SOURCE
-
 # always return true
 true
