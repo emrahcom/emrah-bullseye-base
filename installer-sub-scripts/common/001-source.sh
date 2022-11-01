@@ -16,7 +16,7 @@ echo "-------------------------- SOURCE -------------------------"
 # PRE-SOURCE PACKAGES
 # ------------------------------------------------------------------------------
 export DEBIAN_FRONTEND=noninteractive
-apt-get $APT_PROXY_OPTION -y install procps
+apt-get $APT_PROXY -y install procps
 
 # ------------------------------------------------------------------------------
 # SET GLOBAL VARIABLES
