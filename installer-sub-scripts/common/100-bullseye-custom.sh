@@ -44,18 +44,18 @@ for i in 1 2 3; do
     apt-get -y --allow-releaseinfo-change update && sleep 3 && break
 done
 
-apt-get $APT_PROXY_OPTION -y dist-upgrade
+apt-get $APT_PROXY -y dist-upgrade
 EOS
 
 # packages
 lxc-attach -n $MACH -- zsh <<EOS
 set -e
 export DEBIAN_FRONTEND=noninteractive
-apt-get $APT_PROXY_OPTION -y install less tmux vim autojump
-apt-get $APT_PROXY_OPTION -y install curl dnsutils
-apt-get $APT_PROXY_OPTION -y install net-tools ngrep ncat
-apt-get $APT_PROXY_OPTION -y install htop bmon bwm-ng
-apt-get $APT_PROXY_OPTION -y install rsync bzip2 man-db ack
+apt-get $APT_PROXY -y install less tmux vim autojump
+apt-get $APT_PROXY -y install curl dnsutils
+apt-get $APT_PROXY -y install net-tools ngrep ncat
+apt-get $APT_PROXY -y install htop bmon bwm-ng
+apt-get $APT_PROXY -y install rsync bzip2 man-db ack
 EOS
 
 # ------------------------------------------------------------------------------
