@@ -47,13 +47,13 @@ export DEBIAN_FRONTEND=noninteractive
     modprobe veth
 
 # upgrade
-apt-get $APT_PROXY_OPTION -yd dist-upgrade
-apt-get $APT_PROXY_OPTION -y upgrade
-apt-get $APT_PROXY_OPTION -y install apt-utils
+apt-get $APT_PROXY -yd dist-upgrade
+apt-get $APT_PROXY -y upgrade
+apt-get $APT_PROXY -y install apt-utils
 
 # added packages
-apt-get $APT_PROXY_OPTION -y install lxc debootstrap bridge-utils
-apt-get $APT_PROXY_OPTION -y install dnsmasq dnsutils
-apt-get $APT_PROXY_OPTION -y install xz-utils gnupg pwgen
-apt-get $APT_PROXY_OPTION -y install wget ca-certificates
-apt-get $APT_PROXY_OPTION -y install iputils-ping
+apt-get $APT_PROXY -y install lxc debootstrap bridge-utils
+apt-get $APT_PROXY -y install dnsmasq dnsutils
+apt-get $APT_PROXY -y install xz-utils gnupg pwgen
+apt-get $APT_PROXY -y install wget ca-certificates
+apt-get $APT_PROXY -y install iputils-ping
