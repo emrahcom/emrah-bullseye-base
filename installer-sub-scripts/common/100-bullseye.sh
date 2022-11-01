@@ -91,7 +91,7 @@ sleep 1
 # PACKAGES
 # ------------------------------------------------------------------------------
 # ca-certificates for https repo
-apt-get $APT_PROXY_OPTION \
+apt-get $APT_PROXY \
     -o dir::cache::archives="/usr/local/eb/cache/bullseye-apt-archives/" \
     -dy reinstall iputils-ping ca-certificates openssl
 
@@ -114,24 +114,24 @@ lxc-attach -n $MACH -- bash <<EOS
 set -e
 export DEBIAN_FRONTEND=noninteractive
 apt-get -y --allow-releaseinfo-change update
-apt-get $APT_PROXY_OPTION -y dist-upgrade
+apt-get $APT_PROXY -y dist-upgrade
 EOS
 
 # packages
 lxc-attach -n $MACH -- bash <<EOS
 set -e
 export DEBIAN_FRONTEND=noninteractive
-apt-get $APT_PROXY_OPTION -y install apt-utils
-apt-get $APT_PROXY_OPTION -y install zsh
+apt-get $APT_PROXY -y install apt-utils
+apt-get $APT_PROXY -y install zsh
 EOS
 
 lxc-attach -n $MACH -- zsh <<EOS
 set -e
 export DEBIAN_FRONTEND=noninteractive
-apt-get $APT_PROXY_OPTION -y install openssh-server openssh-client
-apt-get $APT_PROXY_OPTION -y install cron logrotate
-apt-get $APT_PROXY_OPTION -y install dbus libpam-systemd
-apt-get $APT_PROXY_OPTION -y install wget
+apt-get $APT_PROXY -y install openssh-server openssh-client
+apt-get $APT_PROXY -y install cron logrotate
+apt-get $APT_PROXY -y install dbus libpam-systemd
+apt-get $APT_PROXY -y install wget
 EOS
 
 # ------------------------------------------------------------------------------
