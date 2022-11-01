@@ -44,7 +44,7 @@ for i in 1 2 3; do
     apt-get -y --allow-releaseinfo-change update && sleep 3 && break
 done
 
-apt-get $APT_PROXY_OPTION -y dist-upgrade
+apt-get $APT_PROXY -y dist-upgrade
 EOS
 
 # ------------------------------------------------------------------------------
