@@ -18,18 +18,18 @@ PUBLIC_INTERFACE=${DEFAULT_ROUTE##*dev }
 PUBLIC_INTERFACE=${PUBLIC_INTERFACE/% */}
 echo PUBLIC_INTERFACE="$PUBLIC_INTERFACE" >> $INSTALLER/000-source
 
-# IP address
+# IP address (IP used in the private bridge network)
 DNS_RECORD=$(grep 'address=/host/' etc/dnsmasq.d/eb-hosts | head -n1)
 IP=${DNS_RECORD##*/}
 echo HOST="$IP" >> $INSTALLER/000-source
 
-# remote IP address (local IP for remote connections)
+# remote IP address (IP used for remote connections)
 REMOTE_IP=$(ip addr show $PUBLIC_INTERFACE | ack "$PUBLIC_INTERFACE$" | \
             xargs | cut -d " " -f2 | cut -d "/" -f1)
 echo REMOTE_IP="$REMOTE_IP" >> $INSTALLER/000-source
 
 # external IP (Internet IP)
-EXTERNAL_IP=$(dig -4 +short myip.opendns.com a @resolver1.opendns.com) || true
+EXTERNAL_IP=$(curl -s ifconfig.me || true)
 echo EXTERNAL_IP="$EXTERNAL_IP" >> $INSTALLER/000-source
 
 # ------------------------------------------------------------------------------
