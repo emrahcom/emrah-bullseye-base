@@ -140,6 +140,14 @@ fi
 mv $BASE_TMP_DIR $APP_TMP_DIR
 
 # ------------------------------------------------------------------------------
+# MERGE THE LOCAL TEMPLATES FOLDER WITH THE APPLICATION FOLDER
+# ------------------------------------------------------------------------------
+if [[ "$USE_LOCAL_TEMPLATES" = true ]] && \
+   [[ -d "$LOCAL_TEMPLATES" ]]; then
+    rsync -av $LOCAL_TEMPLATES/ $APP_TMP_DIR/
+fi
+
+# ------------------------------------------------------------------------------
 # RUNNING THE SUB INSTALLATION SCRIPTS
 # ------------------------------------------------------------------------------
 export TMP=$APP_TMP_DIR
