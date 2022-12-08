@@ -41,6 +41,7 @@ export APP_CONFIG="${APP_TEMPLATE}.conf"
 
 [[ -z "$BRIDGE" ]] && export BRIDGE="eb0"
 [[ -z "$SHARED" ]] && export SHARED="/usr/local/eb"
+[[ -z "$RELEASE" ]] && export RELEASE="bullseye"
 
 # ------------------------------------------------------------------------------
 # STATUS
