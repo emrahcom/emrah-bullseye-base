@@ -116,10 +116,16 @@ apt-get $APT_PROXY -y install git
 if [[ "$DONT_CLONE_GIT_REPO" != true ]]; then
     rm -rf $BASE_TMP_DIR
     git clone --depth=1 -b $BASE_BRANCH $BASE_REPO $BASE_TMP_DIR
+    rm -rf $BASE_TMP_DIR/{.git,.gitignore}
 
     rm -rf $APP_TMP_DIR
-    [[ -n "$APP_REPO" ]] && \
-        git clone --depth=1 -b $APP_BRANCH $APP_REPO $APP_TMP_DIR
+    if [[ -n "$APP_REPO" ]]; then
+        git clone --depth=1 -b $APP_BRANCH $APP_REPO $APP_TMP_DIR \
+            --config core.sshCommand="ssh \
+                -o StrictHostKeyChecking=no \
+                -o UserKnownHostsFile=/dev/null"
+        rm -rf $APP_TMP_DIR/{.git,.gitignore}
+    fi
 fi
 
 # ------------------------------------------------------------------------------
