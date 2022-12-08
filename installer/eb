@@ -12,6 +12,8 @@
 #    export DONT_RUN_HOST=true
 #    export BRIDGE="br0"
 # ------------------------------------------------------------------------------
+export BASEDIR=$(pwd)
+
 # The first argument is the template name and we need it.
 if [[ -z "$1" ]]; then
     echo "ERROR: missing argument. The template name is required"
@@ -43,7 +45,6 @@ export SHARED="/usr/local/eb"
 # ------------------------------------------------------------------------------
 export START_TIME=$(date +%s)
 export DATE=$(date +"%Y%m%d%H%M%S")
-export BASEDIR=$(pwd)
 export SWAP=$(grep SwapTotal /proc/meminfo | awk '{ print $2; }')
 export FREE_SPACE=$((df | grep "/var/lib/lxc$"
     df | grep "/var/lib$"
