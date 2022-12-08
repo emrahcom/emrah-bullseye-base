@@ -34,9 +34,7 @@ export APP_CONFIG="${APP_TEMPLATE}.conf"
 [[ -z "$BASE_TMP_DIR" ]] && export BASE_TMP_DIR="/tmp/eb-base-tmp"
 [[ -z "$APP_REPO" ]] && export APP_REPO=
 [[ -z "$APP_BRANCH" ]] && export APP_BRANCH="main"
-
-
-export APP_TMP_DIR="eb-tmp"
+[[ -z "$APP_TMP_DIR" ]] && export APP_TMP_DIR="/tmp/eb"
 
 export BRIDGE="eb0"
 export SHARED="/usr/local/eb"
