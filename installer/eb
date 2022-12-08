@@ -23,7 +23,7 @@ if [[ -z "$1" ]]; then
 fi
 
 export TAG="eb"
-export BASE_TEMPLATE=eb-base
+export BASE_TEMPLATE="eb-base"
 export BASE_CONFIG="${BASE_TEMPLATE}.conf"
 export BASE_REPO="https://github.com/emrahcom/emrah-bullseye-base.git"
 export APP_TEMPLATE="$(echo $1 | sed 's/\.conf$//')"
@@ -32,10 +32,10 @@ export APP_CONFIG="${APP_TEMPLATE}.conf"
 [[ -e "$BASEDIR/$APP_CONFIG" ]] && source "$BASEDIR/$APP_CONFIG"
 
 [[ -z "$BASE_BRANCH" ]] && export BASE_BRANCH="main"
-[[ -z "$BASE_TMP_DIR" ]] && export BASE_TMP_DIR="/tmp/eb-base"
+[[ -z "$BASE_TMP_DIR" ]] && export BASE_TMP_DIR="/tmp/$TAG-base"
 [[ -z "$APP_REPO" ]] && export APP_REPO=
 [[ -z "$APP_BRANCH" ]] && export APP_BRANCH="main"
-[[ -z "$APP_TMP_DIR" ]] && export APP_TMP_DIR="/tmp/eb"
+[[ -z "$APP_TMP_DIR" ]] && export APP_TMP_DIR="/tmp/$TAG"
 
 [[ -z "$USE_LOCAL_TEMPLATES" ]] && export USE_LOCAL_TEMPLATES=false
 [[ -z "$LOCAL_TEMPLATES" ]] && export LOCAL_TEMPLATES=/root/eb-local-templates
