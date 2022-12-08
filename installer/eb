@@ -132,7 +132,6 @@ fi
 # MERGE THE BASE FOLDER WITH THE APPLICATION FOLDER
 # ------------------------------------------------------------------------------
 if [[ "$BASE_TEMPLATE" != "$APP_TEMPLATE" ]]; then
-    rm -rf $BASE_TMP_DIR/{.git,.gitignore}
     rsync -av $APP_TMP_DIR/ $BASE_TMP_DIR/
     rm -rf $APP_TMP_DIR
 fi
