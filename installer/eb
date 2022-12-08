@@ -22,18 +22,18 @@ if [[ -z "$1" ]]; then
     exit 1
 fi
 
-
-export FREE_SPACE_NEEDED="1000000"
-export RELEASE="bullseye"
-
 export BASE_TEMPLATE=eb-base
 export BASE_CONFIG="${BASE_TEMPLATE}.conf"
 export BASE_REPO="https://github.com/emrahcom/emrah-bullseye-base.git"
-export BASE_BRANCH="main"
+export APP_TEMPLATE="$(echo $1 | sed 's/\.conf$//')"
+export APP_CONFIG="${APP_TEMPLATE}.conf"
+
+[[ -e "$BASEDIR/$APP_CONFIG" ]] && source "$BASEDIR/$APP_CONFIG"
+
+[[ -z "$BASE_BRANCH" ]] && export BASE_BRANCH="main"
+
 export BASE_TMP_DIR="eb-base-tmp"
 
-export APP_TEMPLATE="$(echo $1 | cut -d. -f1)"
-export APP_CONFIG="${APP_TEMPLATE}.conf"
 export APP_REPO=
 export APP_BRANCH="main"
 export APP_TMP_DIR="eb-tmp"
