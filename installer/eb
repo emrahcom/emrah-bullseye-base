@@ -22,6 +22,7 @@ if [[ -z "$1" ]]; then
     exit 1
 fi
 
+export TAG="eb"
 export BASE_TEMPLATE=eb-base
 export BASE_CONFIG="${BASE_TEMPLATE}.conf"
 export BASE_REPO="https://github.com/emrahcom/emrah-bullseye-base.git"
