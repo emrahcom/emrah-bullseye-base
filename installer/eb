@@ -23,7 +23,7 @@ if [[ -z "$1" ]]; then
 fi
 
 export TAG="eb"
-export BASE_TEMPLATE="eb-base"
+export BASE_TEMPLATE="$TAG-base"
 export BASE_CONFIG="${BASE_TEMPLATE}.conf"
 export BASE_REPO="https://github.com/emrahcom/emrah-bullseye-base.git"
 export APP_TEMPLATE="$(echo $1 | sed 's/\.conf$//')"
@@ -153,8 +153,8 @@ fi
 export TMP=$APP_TMP_DIR
 export INSTALLER=$APP_TMP_DIR/installer-sub-scripts/$APP_TEMPLATE
 export MACHINES=$APP_TMP_DIR/machines
-export MACHINE_HOST=$MACHINES/eb-host
-export MACHINE_BULLSEYE=$MACHINES/eb-bullseye
+export MACHINE_HOST=$MACHINES/$TAG-host
+export MACHINE_BULLSEYE=$MACHINES/$TAG-bullseye
 export MACHINE_COMMON=$MACHINES/common
 
 cd $INSTALLER
