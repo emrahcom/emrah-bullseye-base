@@ -15,16 +15,19 @@ echo
 echo "------------------------- REMINDER ------------------------"
 
 if [[ "0" = "$SWAP" ]]; then
-    echo
-    echo "Add swap file to the host, if there is no swap (mostly on cloud)"
-    echo ">>> dd if=/dev/zero of=/swapfile bs=1M count=2048"
-    echo ">>> chmod 600 /swapfile"
-    echo ">>> mkswap /swapfile"
-    echo ">>> swapon /swapfile"
-    echo ">>> echo '/swapfile none  swap  sw  0  0' >>/etc/fstab"
+    cat <<EOF
+
+Add swap file to the host, if there is no swap (mostly on cloud):
+>>> dd if=/dev/zero of=/swapfile bs=1M count=2048
+>>> chmod 600 /swapfile
+>>> mkswap /swapfile
+>>> swapon /swapfile
+>>> echo '/swapfile none  swap  sw  0  0' >>/etc/fstab
+EOF
 fi
 
-echo
-echo "Install the 'open-vm-tools' package to the host if this is"
-echo "a VMware machine"
-echo ">>> apt-get install open-vm-tools"
+cat <<EOF
+
+Install the 'open-vm-tools' package to the host if this is a VMware machine:
+>>> apt-get install open-vm-tools
+EOF
