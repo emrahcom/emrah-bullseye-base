@@ -38,7 +38,7 @@ export APP_CONFIG="${APP_TEMPLATE}.conf"
 [[ -z "$APP_TMP_DIR" ]] && export APP_TMP_DIR="/tmp/$TAG"
 
 [[ -z "$USE_LOCAL_TEMPLATES" ]] && export USE_LOCAL_TEMPLATES=false
-[[ -z "$LOCAL_TEMPLATES" ]] && export LOCAL_TEMPLATES=/root/eb-local-templates
+[[ -z "$LOCAL_TEMPLATES" ]] && export LOCAL_TEMPLATES=/root/$TAG-local-templates
 
 [[ -z "$BRIDGE" ]] && export BRIDGE="eb0"
 [[ -z "$SHARED" ]] && export SHARED="/usr/local/eb"
