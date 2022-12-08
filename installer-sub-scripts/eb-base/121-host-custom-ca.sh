@@ -9,7 +9,7 @@ source $INSTALLER/000-source
 # ------------------------------------------------------------------------------
 # ENVIRONMENT
 # ------------------------------------------------------------------------------
-MACH="eb-host"
+MACH="$TAG-host"
 cd $MACHINES/$MACH
 
 # ------------------------------------------------------------------------------
@@ -32,16 +32,16 @@ apt-get $APT_PROXY -y install openssl
 # CA CERTIFICATE & KEY
 # ------------------------------------------------------------------------------
 # the CA key and the CA certificate
-if [[ ! -d "/root/eb-certs" ]]; then
-    mkdir /root/eb-certs
-    chmod 700 /root/eb-certs
+if [[ ! -d "/root/$TAG-certs" ]]; then
+    mkdir /root/$TAG-certs
+    chmod 700 /root/$TAG-certs
 fi
 
-if [[ ! -f "/root/eb-certs/eb-CA.pem" ]]; then
-    cd /root/eb-certs
-    rm -f eb-CA.key
+if [[ ! -f "/root/$TAG-certs/$TAG-CA.pem" ]]; then
+    cd /root/$TAG-certs
+    rm -f $TAG-CA.key
 
     openssl req -nodes -new -x509 -days 10950 \
-        -keyout eb-CA.key -out eb-CA.pem \
-        -subj "/O=emrah-bullseye/OU=CA/CN=emrah-bullseye $DATE-$RANDOM"
+        -keyout $TAG-CA.key -out $TAG-CA.pem \
+        -subj "/O=$TAG/OU=CA/CN=$TAG-bullseye $DATE-$RANDOM"
 fi
