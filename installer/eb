@@ -121,7 +121,16 @@ if [[ "$DONT_CLONE_GIT_REPO" != true ]]; then
 
     rm -rf $APP_TMP_DIR
     if [[ -n "$APP_REPO" ]]; then
-        git clone --depth=1 -b $APP_BRANCH $APP_REPO $APP_TMP_DIR
+        if [[ -n "$(echo $APP_TMP_DIR | egrep -o '^ssh://')" ]]; then
+            git clone --depth=1 -b $APP_BRANCH $APP_REPO $APP_TMP_DIR \
+                --config core.sshCommand="ssh \
+                    -i /root/.ssh/deploy.key \
+                    -o StrictHostKeyChecking=no \
+                    -o UserKnownHostsFile=/dev/null"
+        else
+            git clone --depth=1 -b $APP_BRANCH $APP_REPO $APP_TMP_DIR
+        fi
+
         rm -rf $APP_TMP_DIR/{.git,.gitignore}
     fi
 fi
