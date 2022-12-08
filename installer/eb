@@ -36,6 +36,9 @@ export APP_CONFIG="${APP_TEMPLATE}.conf"
 [[ -z "$APP_BRANCH" ]] && export APP_BRANCH="main"
 [[ -z "$APP_TMP_DIR" ]] && export APP_TMP_DIR="/tmp/eb"
 
+[[ -z "$USE_LOCAL_TEMPLATES" ]] && export USE_LOCAL_TEMPLATES=false
+[[ -z "$LOCAL_TEMPLATES" ]] && export LOCAL_TEMPLATES=/root/eb-local-templates
+
 export BRIDGE="eb0"
 export SHARED="/usr/local/eb"
 
