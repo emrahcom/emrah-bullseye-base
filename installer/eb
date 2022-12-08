@@ -40,8 +40,8 @@ export APP_CONFIG="${APP_TEMPLATE}.conf"
 [[ -z "$USE_LOCAL_TEMPLATES" ]] && export USE_LOCAL_TEMPLATES=false
 [[ -z "$LOCAL_TEMPLATES" ]] && export LOCAL_TEMPLATES=/root/$TAG-local-templates
 
-[[ -z "$BRIDGE" ]] && export BRIDGE="eb0"
-[[ -z "$SHARED" ]] && export SHARED="/usr/local/eb"
+[[ -z "$BRIDGE" ]] && export BRIDGE="$TAG"
+[[ -z "$SHARED" ]] && export SHARED="/usr/local/$TAG"
 [[ -z "$RELEASE" ]] && export RELEASE="bullseye"
 [[ -z "$FREE_SPACE_NEEDED" ]] && export FREE_SPACE_NEEDED="1000000"
 
