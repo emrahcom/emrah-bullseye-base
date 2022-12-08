@@ -40,8 +40,7 @@ export APP_CONFIG="${APP_TEMPLATE}.conf"
 [[ -z "$LOCAL_TEMPLATES" ]] && export LOCAL_TEMPLATES=/root/eb-local-templates
 
 [[ -z "$BRIDGE" ]] && export BRIDGE="eb0"
-
-export SHARED="/usr/local/eb"
+[[ -z "$SHARED" ]] && export SHARED="/usr/local/eb"
 
 # ------------------------------------------------------------------------------
 # STATUS
