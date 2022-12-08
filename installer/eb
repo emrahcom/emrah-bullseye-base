@@ -57,20 +57,6 @@ export FREE_SPACE=$((df | grep "/var/lib/lxc$"
     head -n1 | awk '{ print $4; }')
 
 # ------------------------------------------------------------------------------
-# CUSTOMIZATION
-# ------------------------------------------------------------------------------
-# Please set the related environment variables in CONFIG files to prevent to
-# run some scripts or to prevent to check some criteria during the installation
-#
-# Examples:
-#    export DONT_CLONE_GIT_REPO=true
-#    export DONT_RUN_HOST=true
-#    export DONT_RUN_BULLSEYE=true
-#    export BRIDGE="br0"
-# ------------------------------------------------------------------------------
-[[ -e "$BASEDIR/$APP_CONFIG" ]] && source "$BASEDIR/$APP_CONFIG"
-
-# ------------------------------------------------------------------------------
 # CHECKING THE HOST (which will host the LXC containers)
 # ------------------------------------------------------------------------------
 # If the current user is not 'root', cancel the installation.
