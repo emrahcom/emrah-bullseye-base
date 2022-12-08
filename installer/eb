@@ -151,9 +151,8 @@ fi
 # RUNNING THE SUB INSTALLATION SCRIPTS
 # ------------------------------------------------------------------------------
 export TMP=$APP_TMP_DIR
-export ROOTDIR=$BASEDIR/$TMP
-export INSTALLER=$ROOTDIR/installer-sub-scripts/$APP_TEMPLATE
-export MACHINES=$ROOTDIR/machines
+export INSTALLER=$APP_TMP_DIR/installer-sub-scripts/$APP_TEMPLATE
+export MACHINES=$APP_TMP_DIR/machines
 export MACHINE_HOST=$MACHINES/eb-host
 export MACHINE_BULLSEYE=$MACHINES/eb-bullseye
 export MACHINE_COMMON=$MACHINES/common
