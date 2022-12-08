@@ -31,8 +31,8 @@ export APP_CONFIG="${APP_TEMPLATE}.conf"
 [[ -e "$BASEDIR/$APP_CONFIG" ]] && source "$BASEDIR/$APP_CONFIG"
 
 [[ -z "$BASE_BRANCH" ]] && export BASE_BRANCH="main"
+[[ -z "$BASE_TMP_DIR" ]] && export BASE_TMP_DIR="/tmp/eb-base-tmp"
 
-export BASE_TMP_DIR="eb-base-tmp"
 
 export APP_REPO=
 export APP_BRANCH="main"
