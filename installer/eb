@@ -121,7 +121,7 @@ if [[ "$DONT_CLONE_GIT_REPO" != true ]]; then
 
     rm -rf $APP_TMP_DIR
     if [[ -n "$APP_REPO" ]]; then
-        if [[ -n "$(echo $APP_TMP_DIR | egrep -o '^ssh://')" ]]; then
+        if [[ -n "$(echo $APP_REPO | egrep -o '^ssh://')" ]]; then
             git clone --depth=1 -b $APP_BRANCH $APP_REPO $APP_TMP_DIR \
                 --config core.sshCommand="ssh \
                     -i /root/.ssh/deploy.key \
