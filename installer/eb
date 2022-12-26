@@ -109,6 +109,7 @@ trap on_exit EXIT
 # ------------------------------------------------------------------------------
 apt-get $APT_PROXY update
 apt-get $APT_PROXY -y install wget rsync
+apt-get $APT_PROXY -y install dnsutils
 apt-get $APT_PROXY -y install git
 
 # ------------------------------------------------------------------------------
