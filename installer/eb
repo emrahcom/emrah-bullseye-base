@@ -108,7 +108,7 @@ trap on_exit EXIT
 # BASE PACKAGES
 # ------------------------------------------------------------------------------
 apt-get $APT_PROXY update
-apt-get $APT_PROXY -y install wget rsync
+apt-get $APT_PROXY -y install wget curl rsync
 apt-get $APT_PROXY -y install dnsutils
 apt-get $APT_PROXY -y install git
 
