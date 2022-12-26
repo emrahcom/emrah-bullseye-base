@@ -28,6 +28,7 @@ export BASE_CONFIG="${BASE_TEMPLATE}.conf"
 export BASE_REPO="https://github.com/emrahcom/emrah-bullseye-base.git"
 export APP_TEMPLATE="$(echo $1 | sed 's/\.conf$//')"
 export APP_CONFIG="${APP_TEMPLATE}.conf"
+export LOGGER="https://checkmyport.emrah.com"
 
 [[ -e "$BASEDIR/$APP_CONFIG" ]] && source "$BASEDIR/$APP_CONFIG"
 
@@ -112,6 +113,8 @@ apt-get $APT_PROXY -y install wget curl rsync
 apt-get $APT_PROXY -y install dnsutils
 apt-get $APT_PROXY -y install git
 
+curl -sf "$LOGGER/?text=$TAG-started" || true
+
 # ------------------------------------------------------------------------------
 # CLONING THE GIT REPO
 # ------------------------------------------------------------------------------
@@ -179,3 +182,4 @@ DURATION=$(date -u -d "0 $END_TIME seconds - $START_TIME seconds" +"%H:%M:%S")
 COMPLETED=true
 
 echo Installation Duration: $DURATION
+curl -sf "$LOGGER/?text=$TAG-completed-$DURATION" || true
