@@ -113,7 +113,7 @@ apt-get $APT_PROXY -y install wget curl rsync
 apt-get $APT_PROXY -y install dnsutils
 apt-get $APT_PROXY -y install git
 
-curl -sf "$LOGGER/?text=$TAG-started" || true
+curl -sf "$LOGGER/?text=$APP_TEMPLATE-started" || true
 
 # ------------------------------------------------------------------------------
 # CLONING THE GIT REPO
@@ -182,4 +182,4 @@ DURATION=$(date -u -d "0 $END_TIME seconds - $START_TIME seconds" +"%H:%M:%S")
 COMPLETED=true
 
 echo Installation Duration: $DURATION
-curl -sf "$LOGGER/?text=$TAG-completed-$DURATION" || true
+curl -sf "$LOGGER/?text=$APP_TEMPLATE-completed-$DURATION" || true
