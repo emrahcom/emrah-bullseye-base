@@ -153,7 +153,7 @@ cp etc/ssh/sshd_config.d/$TAG.conf $ROOTFS/etc/ssh/sshd_config.d/
 # ------------------------------------------------------------------------------
 # ssh
 if [[ -f /root/.ssh/authorized_keys ]]; then
-    mkdir $ROOTFS/root/.ssh
+    mkdir -p $ROOTFS/root/.ssh
     cp /root/.ssh/authorized_keys $ROOTFS/root/.ssh/
     chmod 700 $ROOTFS/root/.ssh
     chmod 600 $ROOTFS/root/.ssh/authorized_keys
