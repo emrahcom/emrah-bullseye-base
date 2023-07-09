@@ -51,8 +51,7 @@ rm -rf /var/cache/lxc/download/debian/bullseye/$ARCH/default
 
 # create the new one
 lxc-create -n $MACH -t download -P /var/lib/lxc/ -- \
-    -d debian -r bullseye -a $ARCH \
-    --keyserver "keyserver.ubuntu.com"
+    -d debian -r bullseye -a $ARCH
 
 # shared directories
 mkdir -p $SHARED/cache
