@@ -50,7 +50,7 @@ apt-get $APT_PROXY -y upgrade
 apt-get $APT_PROXY -y install apt-utils
 
 # added packages
-apt-get $APT_PROXY -y install lxc debootstrap bridge-utils
+apt-get $APT_PROXY -y install lxc uidmap debootstrap bridge-utils
 apt-get $APT_PROXY -y install dnsmasq dnsutils
 apt-get $APT_PROXY -y install xz-utils gnupg pwgen
 apt-get $APT_PROXY -y install wget curl ca-certificates
