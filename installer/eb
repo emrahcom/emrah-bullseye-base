@@ -159,12 +159,12 @@ fi
 # ------------------------------------------------------------------------------
 # RUNNING THE SUB INSTALLATION SCRIPTS
 # ------------------------------------------------------------------------------
-export TMP=$APP_TMP_DIR
-export INSTALLER=$APP_TMP_DIR/installer-sub-scripts/$APP_TEMPLATE
-export MACHINES=$APP_TMP_DIR/machines
-export MACHINE_HOST=$MACHINES/$TAG-host
-export MACHINE_BULLSEYE=$MACHINES/$TAG-bullseye
-export MACHINE_COMMON=$MACHINES/common
+export TMP="$APP_TMP_DIR"
+export INSTALLER="$APP_TMP_DIR/installer-sub-scripts/$APP_TEMPLATE"
+export MACHINES="$APP_TMP_DIR/machines"
+export MACHINE_HOST="$MACHINES/$TAG-host"
+export MACHINE_BULLSEYE="$MACHINES/$TAG-bullseye"
+export MACHINE_COMMON="$MACHINES/common"
 
 cd $INSTALLER
 [[ -f "init.sh" ]] && bash init.sh
