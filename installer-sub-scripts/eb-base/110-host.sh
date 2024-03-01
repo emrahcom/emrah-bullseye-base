@@ -50,6 +50,7 @@ apt-get $APT_PROXY -y upgrade
 apt-get $APT_PROXY -y install apt-utils
 
 # added packages
+apt-get $APT_PROXY -y install procps ifupdown
 apt-get $APT_PROXY -y install lxc uidmap debootstrap bridge-utils
 apt-get $APT_PROXY -y install dnsmasq dnsutils
 apt-get $APT_PROXY -y install xz-utils gnupg pwgen
