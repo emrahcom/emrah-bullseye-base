@@ -79,11 +79,11 @@ if [[ "$DONT_CHECK_OS_RELEASE" != true ]] && \
     exit 1
 fi
 
-# If there is not enough disk free space, cancel the installation.
+# If there is not enough free disk space, cancel the installation.
 if [[ "$DONT_CHECK_FREE_SPACE" != true ]] && \
    [[ "$FREE_SPACE" -lt "$FREE_SPACE_NEEDED" ]]; then
     echo
-    echo "ERROR: there is not enough disk free space"
+    echo "ERROR: there is not enough free disk space"
     echo
     df -h
     exit 1
