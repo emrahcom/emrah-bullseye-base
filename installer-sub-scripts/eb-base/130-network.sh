@@ -113,8 +113,9 @@ sysctl -p /etc/sysctl.d/$TAG-ip-forward.conf || true
 # ------------------------------------------------------------------------------
 # LXC-NET
 # ------------------------------------------------------------------------------
+systemctl stop lxc-net.service
 cp etc/default/lxc-net /etc/default/
-systemctl restart lxc-net.service
+systemctl start lxc-net.service
 
 # ------------------------------------------------------------------------------
 # DUMMY INTERFACE & BRIDGE
