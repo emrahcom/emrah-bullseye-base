@@ -51,6 +51,7 @@ apt-get $APT_PROXY -y install apt-utils
 
 # removed packages
 apt-get -y purge iptables || true
+apt-get -y autoremove
 
 # added packages
 apt-get $APT_PROXY -y install procps ifupdown
