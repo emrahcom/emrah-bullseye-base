@@ -49,6 +49,9 @@ apt-get $APT_PROXY -yd dist-upgrade
 apt-get $APT_PROXY -y upgrade
 apt-get $APT_PROXY -y install apt-utils
 
+# removed packages
+apt-get -y purge iptables || true
+
 # added packages
 apt-get $APT_PROXY -y install procps ifupdown
 apt-get $APT_PROXY -y install lxc uidmap debootstrap bridge-utils
